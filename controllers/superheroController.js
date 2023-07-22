@@ -11,3 +11,12 @@ module.exports.createSuperhero = async (req, res, next) => {
     next(error);
   }
 };
+module.exports.getSuperhero = async (req, res, next) => {
+  try {
+    const superheros = await Superhero.findAll();
+
+    res.send({ data: superheros });
+  } catch (error) {
+    next(error);
+  }
+};
