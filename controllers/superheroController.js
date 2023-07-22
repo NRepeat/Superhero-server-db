@@ -8,11 +8,10 @@ module.exports.createSuperhero = async (req, res, next) => {
     const {
       body: { superpower, ...info },
     } = req;
-    let superpowerss = { superpowers: superpower }
-    console.log(superpowerss)
+    const superpowerArr = { superpower: superpower }
     const superheroData = await Superhero.create(info);
-    const superpowerData = await superpowers.create(superpowerss);
-    res.send({ data: superpowerss });
+    const superpowerData = await superpowers.create(superpowerArr);
+    res.send({ data: superpowerData });
   } catch (error) {
     next(error);
   }
