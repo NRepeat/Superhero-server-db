@@ -2,31 +2,26 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("superheroes", {
+    await queryInterface.createTable("Superpowers", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      nickname: {
+      superpower: {
         type: Sequelize.STRING,
       },
-      realName: {
-        type: Sequelize.STRING,
-        field: "real_name",
+      superheroId: {
+        type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: "Superheros",
+          key: "id",
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
       },
-      originDescription: {
-        type: Sequelize.STRING,
-        field: "origin_description",
-        allowNull: false,
-      },
-      catchPhrase: {
-        type: Sequelize.STRING,
-        field: "catch_phrase",
-      },
-
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -38,6 +33,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Superheros");
+    await queryInterface.dropTable("Superpowers");
   },
 };
