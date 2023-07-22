@@ -1,12 +1,18 @@
 const { Op } = require("sequelize");
-const { Superhero, Superpowers } = require("../models");
+const { Superhero, superpowers } = require("../models");
 const createHttpError = require("http-errors");
 
 module.exports.createSuperhero = async (req, res, next) => {
   try {
-    const { body } = req;
-    const superhero = await Superhero.create(body);
-    res.send({ data: superhero });
+    
+    const {
+      body: { superpower, ...info },
+    } = req;
+    let superpowerss = { superpowers: superpower }
+    console.log(superpowerss)
+    const superheroData = await Superhero.create(info);
+    const superpowerData = await superpowers.create(superpowerss);
+    res.send({ data: superpowerss });
   } catch (error) {
     next(error);
   }
