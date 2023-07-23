@@ -8,13 +8,11 @@ module.exports.createSuperhero = async (req, res, next) => {
     const {
       body: { superpower, ...info },
     } = req;
-
     if (!superpower) {
-      const error = createHttpError(405, "Method Not Allowed");
-      return next(error);
-    } else if (!info) {
-      const error = createHttpError(405, "Method Not Allowed");
-      return next(error);
+      const d = await superhero.create(info);
+      // const error = createHttpError(405, "Method Not Allowed");
+      // return next(error);
+      return res.send({ data: d });
     }
 
     const superheroData = await superhero.create(info);
@@ -86,6 +84,29 @@ module.exports.updateSuperhero = async (req, res, next) => {
     const updatedSuperhero = await superheroToupdate.update(body);
 
     res.send({ data: updatedSuperhero });
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports.deleteSuperhero = async (req, res, next) => {
+  try {
+    const {
+      params: { superheroId },
+    } = req;
+    const superheroToDelete = await superhero.findByPk(superheroId);
+
+    if (!superheroToDelete) {
+      const notFoundError = createHttpError(404, "Superhero not found");
+      return next(notFoundError);
+    }
+
+    await superhero.destroy({
+      where: {
+        id: superheroId,
+      },
+    });
+
+    res.send({ data: superheroToDelete });
   } catch (error) {
     next(error);
   }
