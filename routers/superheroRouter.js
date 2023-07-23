@@ -1,15 +1,11 @@
 const superheroRouter = require("express").Router();
 
-const SuperheroController = require("../controllers/superheroController");
-const imageUpload = require("../utils/imageUpload");
+const superheroController = require("../controllers/superheroController");
 
-superheroRouter
-  .route("/")
-  .post(SuperheroController.createSuperhero)
-  .get(SuperheroController.getSuperhero);
 
-superheroRouter.route("/:superheroId").get(SuperheroController.getSuperhero);
-superheroRouter
-  .route("/:superheroId/img")
-  .post(imageUpload.single("image"), SuperheroController.addSuperheroImage);
+superheroRouter.route("/all").get(superheroController.getAllSuperheros);
+
+superheroRouter.route("/").post(superheroController.createSuperhero);
+superheroRouter.route("/:superheroId").get(superheroController.getSuperhero);
+
 module.exports = superheroRouter;
