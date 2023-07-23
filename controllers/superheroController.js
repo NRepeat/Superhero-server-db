@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { superhero, superpowers } = require("../models");
+const { superhero, superpowers, SuperhroImg } = require("../models");
 const createHttpError = require("http-errors");
 
 module.exports.createSuperhero = async (req, res, next) => {
@@ -20,10 +20,14 @@ module.exports.createSuperhero = async (req, res, next) => {
   }
 };
 
-module.exports.createSuperheroImage = async (req, res, next) => {
+module.exports.addSuperheroImage = async (req, res, next) => {
   try {
-    const { body, file } = req;
-    res.send({ data: body, file });
+    const {
+      file: { filename },
+    } = req;
+    await SuperhroImg.create({ superheroImgPath: filename });
+
+    res.send({ data: filename });
   } catch (error) {
     next(error);
   }

@@ -1,17 +1,7 @@
 const superheroRouter = require("express").Router();
-const path = require("path");
-const multer = require("multer");
-const SuperheroController = require("../controllers/superheroController");
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.resolve(__dirname, "../public/images"));
-  },
-  filename: function (req, file, cb) {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
-});
 
-const upload = multer({ storage: storage });
+const SuperheroController = require("../controllers/superheroController");
+const imageUpload = require('../utils/imageUpload')
 
 superheroRouter
   .route("/")
@@ -21,5 +11,5 @@ superheroRouter
 superheroRouter.route("/:sperheroId").get(SuperheroController.getSuperhero);
 superheroRouter
   .route("/:sperheroId/img")
-  .post(upload.single("image"), SuperheroController.createSuperheroImage);
+  .post(imageUpload.single("image"), SuperheroController.addSuperheroImage);
 module.exports = superheroRouter;
