@@ -5,7 +5,6 @@ const createHttpError = require("http-errors");
 module.exports.createSuperpower = async (req, res, next) => {
   try {
     const { body } = req;
-    console.log(body)
     const superpower = await superpowers.create(body);
     res.send({ data: superpower });
   } catch (error) {
