@@ -22,12 +22,45 @@ module.exports = (sequelize, DataTypes) => {
   }
   Superhero.init(
     {
-      nickname: DataTypes.STRING,
-      realName: DataTypes.STRING,
+      nickname: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          is: /^[A-Z][a-z]{0,32}$/,
+          notNull: true,
+          notEmpty: true,
+        },
+      },
+      realName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          is: /^[A-Z][a-z]{0,32}$/,
+          notNull: true,
+          notEmpty: true,
+        },
+      },
+      originDescription: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
+      },
+      catchPhrase: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+        },
+      },
     },
     {
       sequelize,
       modelName: "superhero",
+      
     }
   );
   return Superhero;

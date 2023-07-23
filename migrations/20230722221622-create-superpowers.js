@@ -11,6 +11,7 @@ module.exports = {
       },
       superpower: {
         type: Sequelize.ARRAY(Sequelize.STRING),
+        allowNull: false,
       },
       superheroId: {
         type: Sequelize.INTEGER,
