@@ -12,6 +12,15 @@ module.exports = {
       superheroImgPath: {
         type: Sequelize.STRING
       },
+      superheroId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "superheros",
+          key: "id",
+        },
+        onDelete: "cascade",
+        onUpdate: "cascade",
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
