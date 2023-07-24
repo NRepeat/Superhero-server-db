@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       realName: {
+        field:"real_name",
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -41,6 +42,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       originDescription: {
+        field:"origin_description",
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -49,6 +51,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       catchPhrase: {
+        field:"catch_phrase",
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -60,6 +63,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "superhero",
+      tableName:"superheros",
+      underscored:true
       
     }
   );

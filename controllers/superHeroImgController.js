@@ -11,17 +11,18 @@ module.exports.addSuperheroImage = async (req, res, next) => {
     console.log(superheroId);
     const superheroIndex = await superhero.findByPk(superheroId);
 
-    if (!superheroIndex) {
-      const filePath = path.resolve(__dirname, `../public/images/${filename}`);
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          console.error("Error while deleting the file:", err);
-        } else {
-          console.log("File has been successfully deleted.");
-        }
-      });
-      return next(createHttpError(404, "Superhero image doesnt exist"));
-    }
+    // if (!superheroIndex) {
+    //   const filePath = path.resolve(__dirname, `../public/images/${filename}`);
+    //   fs.unlink(filePath, (err) => {
+    //     if (err) {
+    //       console.error("Error while deleting the file:", err);
+    //     } else {
+    //       console.log("File has been successfully deleted.");
+    //     }
+    //   });
+    //   return next(createHttpError(404, "Superhero image doesnt exist"));
+    // }
+    console.log(filename)
     const superhroImg = await SuperhroImg.create({
       superheroImgPath: filename,
       superheroId: superheroId,
@@ -57,39 +58,40 @@ module.exports.updateSuperheroImg = async (req, res, next) => {
     const filePath = path.join(__dirname, "../public/images", filename);
     const superheroImgToupdate = await SuperhroImg.findByPk(superheroId);
 
-    if (!superheroImgToupdate) {
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          console.error("Error while deleting the file:", err);
-        } else {
-          console.log("File has been successfully deleted.");
-        }
-      });
-      return next(createHttpError(404, "Superhero image not found"));
-    } else {
-      const index = superheroImgToupdate.superheroImgPath.indexOf("-");
-      const superheroImgPath = superheroImgToupdate.superheroImgPath.slice(
-        index + 1
-      );
+    // if (!superheroImgToupdate) {
+    //   fs.unlink(filePath, (err) => {
+    //     if (err) {
+    //       console.error("Error while deleting the file:", err);
+    //     } else {
+    //       console.log("File has been successfully deleted.");
+    //     }
+    //   });
+    //   return next(createHttpError(404, "Superhero image not found"));
+    // } else {
+    //   const index = superheroImgToupdate.superheroImgPath.indexOf("-");
+    //   const superheroImgPath = superheroImgToupdate.superheroImgPath.slice(
+    //     index + 1
+    //   );
 
-      const index2 = filename.indexOf("-");
-      const fileName = filename.slice(index2 + 1);
-      if (fileName === superheroImgPath) {
-        fs.unlink(filePath, (err) => {
-          if (err) {
-            console.error("Error while deleting the file:", err);
-          } else {
-            console.log("File has been successfully deleted.");
-          }
-        });
-        return next(createHttpError(405, "Superhero image already exists"));
-      }
+    //   const index2 = filename.indexOf("-");
+    //   const fileName = filename.slice(index2 + 1);
+    //   if (fileName === superheroImgPath) {
+    //     fs.unlink(filePath, (err) => {
+    //       if (err) {
+    //         console.error("Error while deleting the file:", err);
+    //       } else {
+    //         console.log("File has been successfully deleted.");
+    //       }
+    //     });
+    //     return next(createHttpError(405, "Superhero image already exists"));
+    //   }
 
-      const updatedSuperheroImg = await superheroImgToupdate.update({
-        superheroImgPath: filename,
-      });
-      res.send({ data: updatedSuperheroImg });
-    }
+     
+    // }
+    const updatedSuperheroImg = await superheroImgToupdate.update({
+      superheroImgPath: filename,
+    });
+    res.send({ data: updatedSuperheroImg });
   } catch (error) {
     next(error);
   }

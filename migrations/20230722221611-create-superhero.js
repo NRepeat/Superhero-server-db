@@ -15,23 +15,27 @@ module.exports = {
         unique: true,
       },
       realName: {
+        field:"real_name",
         type: Sequelize.STRING,
         allowNull: false,
       },
       originDescription: {
+        field:"origin_description",
         type: Sequelize.STRING,
         allowNull: false,
       },
       catchPhrase: {
+        field:"catch_phrase",
         type: Sequelize.STRING,
         allowNull: false,
       },
       createdAt: {
+        field:"created_at",
         allowNull: false,
         type: Sequelize.DATE,
       },
-
       updatedAt: {
+        field:"updated_at",
         allowNull: false,
         type: Sequelize.DATE,
       },

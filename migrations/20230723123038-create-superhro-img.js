@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('SuperhroImgs', {
+    await queryInterface.createTable('superhero_imgs', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,10 +10,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       superheroImgPath: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        field:"superhero_img_path"
       },
       superheroId: {
         type: Sequelize.INTEGER,
+        field:"superhero_id",
         references: {
           model: "superheros",
           key: "id",
@@ -22,16 +24,18 @@ module.exports = {
         onUpdate: "cascade",
       },
       createdAt: {
+        field:"created_at",
         allowNull: false,
         type: Sequelize.DATE
       },
       updatedAt: {
+        field:"updated_at",
         allowNull: false,
         type: Sequelize.DATE
       }
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('SuperhroImgs');
+    await queryInterface.dropTable('superhero_imgs');
   }
 };

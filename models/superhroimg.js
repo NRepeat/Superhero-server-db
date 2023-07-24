@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class SuperhroImg extends Model {
     /**
@@ -17,11 +15,16 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  SuperhroImg.init({
-    superheroImgPath: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'SuperhroImg',
-  });
+  SuperhroImg.init(
+    {
+      superheroImgPath: { type: DataTypes.STRING, field: "superhero_img_path" },
+    },
+    {
+      sequelize,
+      modelName: "SuperhroImg",
+      tableName: "superhero_imgs",
+      underscored: true,
+    }
+  );
   return SuperhroImg;
 };
