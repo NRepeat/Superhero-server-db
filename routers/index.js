@@ -7,7 +7,7 @@ const {
     validateSuperheroBody,
     validateSuperpowerBody
   } = require('../middlewares/validate.mv');
-rootRouter.use('/superhero', validateSuperheroBody,superheroRouter);
+rootRouter.use('/superhero', superheroRouter);
 rootRouter.use('/superpower',  validateSuperpowerBody, superpowerRouter);
 rootRouter.use("/superheroImg",superheroImgRouter)
 
