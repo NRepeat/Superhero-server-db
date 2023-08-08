@@ -1,4 +1,3 @@
-const { Op } = require("sequelize");
 
 const { superhero, superpowers, SuperhroImg } = require("../models");
 const createHttpError = require("http-errors");
