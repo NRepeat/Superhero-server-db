@@ -1,6 +1,5 @@
 const createHttpError = require("http-errors");
-const { superhero, user } = require("../models");
-
+const { superhero, user, UserToken } = require("../models");
 module.exports.createUser = async (req, res, next) => {
   try {
     const {
@@ -13,10 +12,21 @@ module.exports.createUser = async (req, res, next) => {
       res.send({ data: newUser });
     }
     const superheros = await superhero.findByPk(superheroId);
-    const newUser = await user.create(userData);    
+    const newUser = await user.create(userData);
 
     await newUser.addSuperheros(superheros);
     res.send({ data: newUser });
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports.addUserWithTolken = async (req, res, next) => {
+  try {
+    const { body } = req;
+    console.log(body);
+    const UwT = await UserToken.create(body);
+    console.log(UwT);
+    res.send({ data: UwT });
   } catch (error) {
     next(error);
   }
