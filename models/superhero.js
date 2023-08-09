@@ -20,9 +20,9 @@ module.exports = (sequelize, DataTypes) => {
       });
       Superhero.belongsToMany(user, {
         through: "user_to_superhero",
-        foreignKey: "superheroId",
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+        foreignKey: "superhero_id",
+        onDelete: "cascade",
+        onUpdate: "cascade",
       });
     }
   }
