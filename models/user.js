@@ -1,28 +1,19 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Superhero extends Model {
+  class User extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ superpowers, SuperhroImg }) {
-      Superhero.hasMany(superpowers, {
-        foreignKey: "superheroId",
-        onDelete: "cascade",
-        onUpdate: "cascade",
-      });
-      Superhero.hasMany(SuperhroImg, {
-        foreignKey: "superheroId",
-        onDelete: "cascade",
-        onUpdate: "cascade",
-      });
+    static associate(models) {
+      User.belongsToMany(models.superhero, { through: "UserToSuperhero" });
     }
   }
-  Superhero.init(
+  User.init(
     {
-      nickname: {
+      username: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -30,8 +21,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
-      realName: {
-        field:"real_name",
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -39,19 +29,20 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
-      originDescription: {
-        field:"origin_description",
+      email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique:true,
         validate: {
           notNull: true,
           notEmpty: true,
+          isEmail: true, 
         },
       },
-      catchPhrase: {
-        field:"catch_phrase",
+      password: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique:true,
         validate: {
           notNull: true,
           notEmpty: true,
@@ -60,11 +51,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "superhero",
-      tableName:"superheroes",
-      underscored:true
-      
+      modelName: "User",
     }
   );
-  return Superhero;
+  return User;
 };
