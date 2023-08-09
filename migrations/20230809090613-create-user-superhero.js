@@ -34,6 +34,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('user_superhero');
+    await queryInterface.dropTable('user_to_superhero');
   }
 };

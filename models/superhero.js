@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ superpowers, SuperhroImg }) {
+    static associate({ superpowers, SuperhroImg,user }) {
       Superhero.hasMany(superpowers, {
         foreignKey: "superheroId",
         onDelete: "cascade",
@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "superheroId",
         onDelete: "cascade",
         onUpdate: "cascade",
+      });
+      Superhero.belongsToMany(user, {
+        through: "user_to_superhero",
+        foreignKey: "superheroId",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       });
     }
   }
